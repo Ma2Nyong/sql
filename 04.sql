@@ -53,7 +53,9 @@ from employees; -- 공간을 압축시켜서 빈공간을 채운다?
 --      인사평가일은 입사한지 3개월 후 첫번째 월요일이다.
 --      날짜는 YYYY.MM.DD 로 표시한다.
 
-
+select last_name, to_char(hire_date, 'YYYY.MM.DD') hire_date,
+     to_char(next_day(add_months(hire_date, 3), 'monday'), 'YYYY.MM.DD') review_date
+from employees;
 
 select to_char(salary)
 from employees;
@@ -219,7 +221,7 @@ order by case day
 --      2005년 후에 입사한 사원들에게 10만원 상품권을 지급한다.
 --      사원들의 이름, 입사일, 상품권 금액을 조회하라.
 select last_name, hire_date, 
-    case when hire_date <= '2005/12/31' then '1,000,000'
-        when hire_date >= '2006/01/01' then '500,000'
-        end bonus
-from employees;
+    case when hire_date <= '2005/12/31' then '100만원'
+        else'10만원' end gift
+from employees
+order by gift, hire_date;
